@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>sneha — quietly creating</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #0d0d1a;
+      color: #e6e6e6;
+      font-family: 'Courier New', Courier, monospace;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .intro {
+      text-align: center;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      margin: 0;
+      color: #ff7f7f;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff7f7f; }
+      to { text-shadow: 0 0 20px #ff4c4c, 0 0 30px #ff4c4c; }
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin: 1rem 0 2rem;
+      color: #a3a3c2;
+    }
+
+    .button {
+      background: transparent;
+      border: 2px solid #57d9ff;
+      padding: 10px 20px;
+      color: #57d9ff;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .button:hover {
+      background: #57d9ff;
+      color: #0d0d1a;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bg"></canvas>
+  <div class="intro">
+    <h1>hi, i'm sneha</h1>
+    <p>quietly building, learning, and dreaming in code.</p>
+    <button class="button" onclick="window.location.href='https://github.com/snehatawade'">peek at my world</button>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('bg');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const stars = [];
+
+    for (let i = 0; i < 120; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.5,
+        speed: Math.random() * 0.5
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffffff33";
+        ctx.fill();
+        star.y += star.speed;
+        if (star.y > canvas.height) star.y = 0;
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
